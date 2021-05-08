@@ -1,0 +1,10 @@
+<div class="d-flex">
+  <div *ngFor="let a of articles" class="card w-25 m-3">
+    <img [src]="a.thumbnail" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">{{a.title}}</h5>
+      <p class="card-text">{{a.content.length > 100 ? (a.content | slice:0:100) + '...' : a.content}}</p>
+      <a class="btn btn-primary" [routerLink]="[a.id]" >Go somewhere</a>
+    </div>
+  </div>
+</div>

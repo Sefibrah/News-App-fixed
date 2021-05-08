@@ -1,0 +1,44 @@
+<div class="col-md-5">
+  <form #searchForm="ngForm" class="d-flex align-items-center mb-3">
+    <div class="input-group me-3">
+      <span class="input-group-text" id="search"><i class="fa fa-search"></i></span>
+      <input type="text" class="form-control" placeholder="Search" name="search" id="search" [(ngModel)]="searchQuery">
+    </div>
+    <button class="btn btn-warning w-50" routerLink="create" (click)="create()"><i
+        class="fa fa-plus"></i>
+      Create article</button>
+  </form>
+</div>
+<div class="row">
+  <div [class]="!isArticleFormHidden ? 'col-md-9' : 'col-md-12'">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Thumbnail</th>
+          <th scope="col">Title</th>
+          <th scope="col">Content</th>
+          <th scope="col">Post date</th>
+          <th scope="col">Controls</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of filteredArticles || articles; let i = index" [attr.id]="a.id">
+          <th scope="row">{{i + 1}}</th>
+          <td><img [src]="a.thumbnail" class="img-thumbnail" style="height: 100px;"></td>
+          <td>{{a.title}}</td>
+          <td>{{a.content}}</td>
+          <td>{{a.postDate | date:'medium'}}</td>
+          <td class="mx-4">
+            <button class="btn btn-danger" (click)="delete(a)"><i class="fa fa-trash"></i></button>
+            <button class="btn btn-primary" [routerLink]="['update',a.id]" (click)="edit()"><i class="fa fa-pen"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div [class]="!isArticleFormHidden ? 'col-md-3' : 'd-none'">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<!-- <app-article-edit></app-article-edit> -->

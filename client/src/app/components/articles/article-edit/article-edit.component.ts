@@ -36,6 +36,7 @@ export class ArticleEditComponent implements OnInit {
   create() {
     this.articleService.createArticle(this.createForm.form.value).subscribe(r => {
       this.notyf.success("Post created successfuly")
+      this.close()
     }, err => this.notyf.error(err))
   }
 
@@ -43,6 +44,7 @@ export class ArticleEditComponent implements OnInit {
   edit() {
     this.articleService.updateArticle(this.createForm.form.value).subscribe(r => {
       this.notyf.success("Post edited successfuly")
+      this.close()
     }, err => {
       this.notyf.error(err)
       console.log(err)
@@ -50,6 +52,7 @@ export class ArticleEditComponent implements OnInit {
   }
 
   close() {
+    this.createForm.resetForm()
     this.router.navigate(['dashboard'], {
       queryParams: { isArticleFormHidden: true },
       queryParamsHandling: 'merge',

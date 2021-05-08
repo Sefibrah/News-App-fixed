@@ -41,12 +41,14 @@ export class ArticlesService {
   }
 
   createArticle(a: any) {
+    a.id = this.articles[this.articles.length - 1].id + 1
+    a.postDate = new Date()
     this.articles.push(a)
     return this.http.post(this.baseUrlAdmin + 'create', { ...a }, { responseType: 'text' })
   }
 
   updateArticle(ar: Article) {
-    const indexToUpdate = this.articles.indexOf(this.articles.find(a => a.id = ar.id))
+    const indexToUpdate = this.articles.findIndex(a => a.id == ar.id)
     this.articles[indexToUpdate] = ar
     return this.http.put(this.baseUrlAdmin + 'update', ar, { responseType: 'text' })
   }
@@ -54,6 +56,6 @@ export class ArticlesService {
   deleteArticle(id: number) {
     const indexToUpdate = this.articles.indexOf(this.articles.find(a => a.id == id))
     this.articles.splice(indexToUpdate, 1)
-    return this.http.delete<Article>(this.baseUrlAdmin + 'delete/' + id)
+    return this.http.delete(this.baseUrlAdmin + 'delete/' + id, { responseType: 'text' })
   }
 }
